@@ -1,0 +1,33 @@
+/node_modules
+
+ // 6224127289:AAG4-1b8cxjuMuzr7QHNtOTTSyh0k8B7qko---madhu---chatid---1756651407
+ // 6094576247:AAEL4XIStBSrr69xvv7rxhdoY0nfRr1ypJ4----manoj --chatid---5304244458
+//  6395511802:AAFTndtmgsQOFkp6uEUkS_hGfyr-ZDX72Kk---trimutri
+// var location = `https://www.google.com/maps/search/?api=1&query=${storelat},${storelon}`;
+
+# 5373341332
+
+ RowDataPacket {
+    GHS_ID: 618,
+    LEVEL: 'Level 3',
+    Region: 'East',
+    BTQCode: 'PUR',
+    Customer_Name: 'Truptimayee',
+    GHSAccount_No: 139970526,
+    Location_Short_Name: 'Puri',
+    Typeof_Scheme: 'Golden Harvest Plan',
+    Scheme_Description: 'Golden Harvest Plan',
+    Dateof_Enrolment: '2023-01-16',
+    Installment_Amount: 5000,
+    Dateof_Last_Installment: '2023-05-31',
+    Total_Installments_Paid: 5,
+    Next_Installment_Due: 6,
+    Total_Due: 2,
+    Next_Installment_Due_Date: '2023-06-16',
+    Contact_Number: 7795543306,
+    Mail_Id: 'truptisamantaray@gmail.com',
+    RSO: 'SUSHREE REKHA SAHOO',
+    Fiscal_Year: 2022,
+    GHS_STS: '1',
+    GHS_CREAT_TM: 2023-08-01T10:22:53.834Z
+  },

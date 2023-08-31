@@ -1,0 +1,11 @@
+DB_HOST = "localhost"
+DB_USER = "root"
+DB_PASSWORD = ""
+DB_DATABASE = "bizarcservices_ghs"
+PORT = 4980;
+
+BOT_TOKEN = "6395511802:AAFTndtmgsQOFkp6uEUkS_hGfyr-ZDX72Kk"
+AUTH_KEY = "MTk2MHdzbDA0OTI2eDE2Mm0="
+WP_KEY = `Basic <VTRKcWJFeXIwaWM5VzA1bF9MMVV6bFpWMThnblpkREtZMnZlblFMVUJ6QTo=>`
+
+module.exports = { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, PORT, BOT_TOKEN, AUTH_KEY, WP_KEY };
