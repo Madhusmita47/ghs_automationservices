@@ -5,7 +5,7 @@ const { createAttendance, getAttendanceData, getEmployyData }= require("../contr
 
 router.post("/creatattendance", createAttendance);
 router.get("/getattendancedata", getAttendanceData);
-router.get("/getemployedata", getEmployyData);
+router.get("/getemployeedata", getEmployyData);
 
 
 module.exports = router;

@@ -2,7 +2,7 @@ const axios = require("axios");
 const catchAsyncError = require("../middleware/catchasyncErrors");
 const serviceghs = require("../service/ghsInstallService");
 const { dbQuery } = require("../config/database");
-const info = require("../config/test")
+const info = require("../config/test");
 
 const uploadGhsExcel = async (req, res) => {
   try {
@@ -32,8 +32,7 @@ const playIvers5days = async (req, res) => {
           SELECT GHSAccount_No, MAX(GHS_ID) AS Max_GHS_ID
           FROM ghs_due_installemnt
           WHERE Next_Installment_Due_Date = DATE_ADD(CURDATE(), INTERVAL 5 DAY)
-            AND Total_Due > 0
-          GROUP BY GHSAccount_No
+           GROUP BY GHSAccount_No
       ) max_ghs ON g.GHSAccount_No = max_ghs.GHSAccount_No AND g.GHS_ID = max_ghs.Max_GHS_ID
       ORDER BY g.GHS_ID DESC`
     );
@@ -42,6 +41,14 @@ const playIvers5days = async (req, res) => {
       const apiUrl = `http://103.255.103.28/api/voice/voice_broadcast.php?username=sr1770&token=Rt5Ps7&plan_id=33084&announcement_id=444002&caller_id=1&contact_numbers=${createivrs[i].Contact_Number}&retry_json={"FNA":"2","FBZ":"2","FCG":"2","FFL":"2"}&dtmf_wait=1&dtmf_wait_time=1`;
 
       const response = await axios.get(apiUrl, { headers });
+
+      var currdate = new Date();
+      currdate = currdate.toISOString().replace("T", " ").slice(0, -1);
+
+      const Update = await dbQuery(
+        `UPDATE ghs_due_installemnt SET GHS_CRNT_STS = ? , GHS_CRNT_STS_DT = ?, GHS_ACTION_PRFMD = ? WHERE GHS_ID = ?`,
+        [1, currdate, "5Days-IVRS", createivrs[i].GHS_ID]
+      );
     }
     // console.log(createivrs);
 
@@ -68,8 +75,7 @@ const playIvers7days = async (req, res) => {
           SELECT GHSAccount_No, MAX(GHS_ID) AS Max_GHS_ID
           FROM ghs_due_installemnt
           WHERE Next_Installment_Due_Date = DATE_ADD(CURDATE(), INTERVAL 7 DAY)
-            AND Total_Due > 0
-          GROUP BY GHSAccount_No
+           GROUP BY GHSAccount_No
       ) max_ghs ON g.GHSAccount_No = max_ghs.GHSAccount_No AND g.GHS_ID = max_ghs.Max_GHS_ID
       ORDER BY g.GHS_ID DESC`
     );
@@ -78,6 +84,13 @@ const playIvers7days = async (req, res) => {
       const apiUrl = `http://103.255.103.28/api/voice/voice_broadcast.php?username=sr1770&token=Rt5Ps7&plan_id=33084&announcement_id=444002&caller_id=1&contact_numbers=${createivrs[i].Contact_Number}&retry_json={"FNA":"2","FBZ":"2","FCG":"2","FFL":"2"}&dtmf_wait=1&dtmf_wait_time=1`;
 
       const response = await axios.get(apiUrl, { headers });
+      var currdate = new Date();
+      currdate = currdate.toISOString().replace("T", " ").slice(0, -1);
+
+      const Update = await dbQuery(
+        `UPDATE ghs_due_installemnt SET GHS_CRNT_STS = ? , GHS_CRNT_STS_DT = ?, GHS_ACTION_PRFMD = ? WHERE GHS_ID = ?`,
+        [1, currdate, "7Days-IVRS", createivrs[i].GHS_ID]
+      );
     }
     console.log(createivrs);
 
@@ -125,9 +138,11 @@ const createAllocation = async (req, res) => {
       JOIN (
           SELECT GHSAccount_No, MAX(GHS_ID) AS Max_GHS_ID
           FROM ghs_due_installemnt
-          WHERE Next_Installment_Due_Date NOT 
-            IN ( DATE_ADD(CURDATE(), INTERVAL 5 DAY),DATE_ADD(CURDATE(), INTERVAL 6 DAY),DATE_ADD(CURDATE(), 
-            INTERVAL 7 DAY)) AND Total_Due > 0
+          WHERE Next_Installment_Due_Date  
+            IN ( DATE_ADD(CURDATE(), INTERVAL 0 DAY),DATE_ADD(CURDATE(), INTERVAL 1 DAY),DATE_ADD(CURDATE(), 
+            INTERVAL 2 DAY),DATE_ADD(CURDATE(), 
+            INTERVAL 3 DAY),DATE_ADD(CURDATE(), 
+            INTERVAL 4 DAY)) 
           GROUP BY GHSAccount_No
       ) max_ghs ON g.GHSAccount_No = max_ghs.GHSAccount_No AND g.GHS_ID = max_ghs.Max_GHS_ID
       ORDER BY g.GHS_ID DESC`
@@ -200,6 +215,14 @@ const createAllocation = async (req, res) => {
       };
       console.log(postData);
       const response = await axios.post(apiUrl, postData, { headers });
+
+      var currdate = new Date();
+      currdate = currdate.toISOString().replace("T", " ").slice(0, -1);
+
+      const Update = await dbQuery(
+        `UPDATE ghs_due_installemnt SET GHS_CRNT_STS = ? , GHS_CRNT_STS_DT = ?, GHS_ACTION_PRFMD = ? WHERE GHS_ID = ?`,
+        [1, currdate, "Allocation", createallocation[i].GHS_ID]
+      );
     }
     // const responseData = response.data;
     // res.json(responseData);
@@ -243,9 +266,14 @@ const createInteraction = async (req, res) => {
     // );
 
     const createallocation = await dbQuery(
-      `SELECT * FROM ghs_due_installemnt WHERE Total_Due > 0 AND GHS_CRETN_DT = CURRENT_DATE - INTERVAL 1 DAY AND Contact_Number IN (SELECT Contact_Number FROM ghs_due_installemnt WHERE
-        GHS_CRETN_DT = CURRENT_DATE 
-        AND Total_Due = 0)`
+      `SELECT * FROM ghs_due_installemnt 
+WHERE Total_Due > 0 
+  AND DATE(GHS_CRETN_DT) = DATE(NOW() - INTERVAL 1 DAY) 
+  AND Contact_Number IN (
+    SELECT Contact_Number FROM ghs_due_installemnt 
+    WHERE DATE(GHS_CRETN_DT) = DATE(NOW()) 
+    AND Total_Due = 0
+  )`
     );
 
     for (let i = 0; i < createallocation.length; i++) {
@@ -298,6 +326,14 @@ const createInteraction = async (req, res) => {
       };
       console.log(postData);
       const response = await axios.post(apiUrl, postData, { headers });
+
+      var currdate = new Date();
+      currdate = currdate.toISOString().replace("T", " ").slice(0, -1);
+
+      // const Update = await dbQuery(
+      //   `UPDATE ghs_due_installemnt SET GHS_CRNT_STS = ? , GHS_CRNT_STS_DT = ?, GHS_ACTION_PRFMD = ? WHERE GHS_ID = ?`,
+      //   [1, currdate, "Interaction", createallocation[i].GHS_ID]
+      // );
     }
 
     // const responseData = response.data;
@@ -338,7 +374,7 @@ const whatsappReminder = async (req, res) => {
           SELECT GHSAccount_No, MAX(GHS_ID) AS Max_GHS_ID
           FROM ghs_due_installemnt
           WHERE Next_Installment_Due_Date = DATE_ADD(CURDATE(), 
-            INTERVAL 4 DAY) AND Total_Due > 0 
+            INTERVAL 6 DAY)  
           GROUP BY GHSAccount_No
       ) max_ghs ON g.GHSAccount_No = max_ghs.GHSAccount_No AND g.GHS_ID = max_ghs.Max_GHS_ID
       ORDER BY g.GHS_ID DESC`
@@ -384,6 +420,13 @@ const whatsappReminder = async (req, res) => {
 
       const response = await axios.post(apiUrl, postData, { headers });
       // const responseData = response.data;
+      var currdate = new Date();
+      currdate = currdate.toISOString().replace("T", " ").slice(0, -1);
+
+      const Update = await dbQuery(
+        `UPDATE ghs_due_installemnt SET GHS_CRNT_STS = ? , GHS_CRNT_STS_DT = ?, GHS_ACTION_PRFMD = ? WHERE GHS_ID = ?`,
+        [1, currdate, "Whatsapp Reminder", getlist[i].GHS_ID]
+      );
     }
   } catch (error) {
     console.error("Error occurred:", error);
@@ -415,21 +458,26 @@ const whatsappThankYouMessage = async (req, res) => {
 
   try {
     const getlist = await dbQuery(
-      `SELECT * FROM ghs_due_installemnt WHERE Total_Due > 0 AND GHS_CRETN_DT = CURRENT_DATE - INTERVAL 1 DAY AND Contact_Number IN (SELECT Contact_Number FROM ghs_due_installemnt WHERE
-        GHS_CRETN_DT = CURRENT_DATE 
-        AND Total_Due = 0)`
+      `SELECT * FROM ghs_due_installemnt 
+WHERE Total_Due > 0 
+  AND DATE(GHS_CRETN_DT) = DATE(NOW() - INTERVAL 1 DAY) 
+  AND Contact_Number IN (
+    SELECT Contact_Number FROM ghs_due_installemnt 
+    WHERE DATE(GHS_CRETN_DT) = DATE(NOW()) 
+    AND Total_Due = 0
+  )`
     );
-    
+
     // const headers = {
     //   Authorization: `Basic <VTRKcWJFeXIwaWM5VzA1bF9MMVV6bFpWMThnblpkREtZMnZlblFMVUJ6QTo=>`,
     //   "Content-Type": "application/json",
     // };
-   
+
     const headers = {
       Authorization: info.WP_KEY,
       "Content-Type": "application/json",
     };
-    console.log(headers)
+    console.log(headers);
     const apiUrl = "https://api.interakt.ai/v1/public/message/";
 
     for (let i = 0; i < getlist.length; i++) {
@@ -455,6 +503,14 @@ const whatsappThankYouMessage = async (req, res) => {
 
       const response = await axios.post(apiUrl, postData, { headers });
       // const responseData = response.data;
+
+      var currdate = new Date();
+      currdate = currdate.toISOString().replace("T", " ").slice(0, -1);
+
+      const Update = await dbQuery(
+        `UPDATE ghs_due_installemnt SET GHS_CRNT_STS = ? , GHS_CRNT_STS_DT = ?, GHS_ACTION_PRFMD = ? WHERE GHS_ID = ?`,
+        [1, currdate, "Whatsapp Thankyou", getlist[i].GHS_ID]
+      );
     }
   } catch (error) {
     console.error("Error occurred:", error);
@@ -471,4 +527,3 @@ module.exports = {
   whatsappReminder,
   whatsappThankYouMessage,
 };
-

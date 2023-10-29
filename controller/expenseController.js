@@ -32,12 +32,12 @@ const getexpenseData = async (req, res) => {
 
 const sendMessageToTelegramForApproval = async (expense) => {
   try {
-    var chatId = "5304244458";
+    var chatId = info.MANOJ_CHATID;
 
     if (expense.approvalstate == "2") {
-      chatId = "5304244458";
+      chatId = info.MANOJ_CHATID;
     } else if (expense.approvalstate == "1") {
-      chatId = "1756651407";
+      chatId = info.MADHUSMITA_CHATID;
     }
 
     // var chatId = "908505724";

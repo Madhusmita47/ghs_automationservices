@@ -157,7 +157,6 @@ const sendMessageToTelegramWhenStoreClose = async (req, res) => {
       }
     }
 
-    
   } catch (error) {
     catchAsyncError(error);
   }

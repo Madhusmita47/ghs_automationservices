@@ -31,3 +31,128 @@
     GHS_STS: '1',
     GHS_CREAT_TM: 2023-08-01T10:22:53.834Z
   },
+
+json---------stockdata-
+{  
+    "stockData":[
+        {
+            "Locationcode":"loc125",
+    "Description":"loc125",
+    "ProductDescription":"loc125",
+    "Itemcode":"loc125",
+     "LotNumber":"loc125",
+    "Bincode":"loc125",
+    "Unitweight":"loc125",
+    "Quantity":"loc125",
+    "PricingType":"loc125",
+    "CFAProductCode":"loc125",
+    "StockValue":"loc125",
+    "ComplexityCode":"loc125",
+    "CollectionName":"loc125",
+    "IsHallMarking":"loc125"
+        },
+           {
+            "Locationcode":"loc125",
+    "Description":"loc125",
+    "ProductDescription":"loc125",
+    "Itemcode":"loc125",
+     "LotNumber":"loc125",
+    "Bincode":"loc125",
+    "Unitweight":"loc125",
+    "Quantity":"loc125",
+    "PricingType":"loc125",
+    "CFAProductCode":"loc125",
+    "StockValue":"loc125",
+    "ComplexityCode":"loc125",
+    "CollectionName":"loc125",
+    "IsHallMarking":"loc125"
+        }
+
+    ]
+     
+}
+
+---saleData-------------
+{  
+    "salesData":[
+        {
+              "Mode": "loc111",
+                "LocationCode": "loc111",
+                "DocDate":"loc111",
+                "Description":"loc111",
+                "ProductDescription":"loc111",
+                "ItemCode":"loc111",
+                "Quantity":"loc111",
+                "Weight":"loc111",
+                "TotalValue":"loc111",
+                "LotNumber":"loc111",
+                "PricingType":"loc111",
+                "BinCode":"loc111",
+                "goldrate":"loc111",
+                "Age":"loc111",
+                "RSOname":"loc111",
+                "ThemeDesign":"loc111",
+                "DiscountCode":"loc111",
+                "InvoiceNo":"loc111",
+                "title":"loc111",
+                "CustomerName":"loc111",
+                "Mobileno":"loc111",
+                "GSTRegno":"loc111",
+                "Fineness":"loc111",
+                "ishallmarking":"loc111",
+                "HallmarkingChargesPERqty":"loc111",
+                "hallmarkqty":"loc111",
+                "HMcharges":"loc111",
+                "HMGSTPercent":"loc111",
+                "HMGSTValue":"loc111",
+                "TotalHMcharges":"loc111",
+                "isfoc":"loc111",
+                "HMExcludedGms":"loc111",
+                "Totcategory":"loc111"
+        },
+           {
+            "Mode": "loc111",
+                "LocationCode": "loc111",
+                "DocDate":"loc111",
+                "Description":"loc111",
+                "ProductDescription":"loc111",
+                "ItemCode":"loc111",
+                "Quantity":"loc111",
+                "Weight":"loc111",
+                "TotalValue":"loc111",
+                "LotNumber":"loc111",
+                "PricingType":"loc111",
+                "BinCode":"loc111",
+                "goldrate":"loc111",
+                "Age":"loc111",
+                "RSOname":"loc111",
+                "ThemeDesign":"loc111",
+                "DiscountCode":"loc111",
+                "InvoiceNo":"loc111",
+                "title":"loc111",
+                "CustomerName":"loc111",
+                "Mobileno":"loc111",
+                "GSTRegno":"loc111",
+                "Fineness":"loc111",
+                "ishallmarking":"loc111",
+                "HallmarkingChargesPERqty":"loc111",
+                "hallmarkqty":"loc111",
+                "HMcharges":"loc111",
+                "HMGSTPercent":"loc111",
+                "HMGSTValue":"loc111",
+                "TotalHMcharges":"loc111",
+                "isfoc":"loc111",
+                "HMExcludedGms":"loc111",
+                "Totcategory":"loc111"
+        }
+
+    ]
+     
+}
+
+  
+`sales_Id``Mode``LocationCode``DocDate``Description``ProductDescription``ItemCode``Quantity`
+`Weight``TotalValue``LotNumber``PricingType``BinCode``goldrate``Age``RSOname``ThemeDesign`
+`DiscountCode``InvoiceNo``title``CustomerName``Mobileno``GSTRegno``Fineness``ishallmarking`
+`HallmarkingChargesPERqty``hallmarkqty``HMcharges``HMGSTPercent``HMGSTValue``TotalHMcharges`
+`isfoc``HMExcludedGms``Totcategory``creatd_At``sts`
