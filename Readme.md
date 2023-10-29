@@ -1,1 +1,3 @@
 
+/bot.js
+/test.js
